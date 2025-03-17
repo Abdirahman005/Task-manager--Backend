@@ -1,7 +1,7 @@
-mport psycopg2
+import psycopg2
 
-# Define your connection string
-connection_string = "postgresql://pets_adoption_user:OKuq8XY4kZnZjPZqbabjzxI5xLEu640g@dpg-cvbj3ed2ng1s73eejq50-a.oregon-postgres.render.com/pets_adoption"
+# Define your connection string properly
+connection_string = "dbname='task_manager_application' user='task_manager_application_user' password='RUvV3gmQa4QPhw35XKMX0suNQWSB0xfl' host='dpg-cvbr5st2ng1s73eh1530-a.oregon-postgres.render.com' port='5432'"
 
 try:
     # Establish a connection
@@ -21,7 +21,7 @@ except Exception as e:
 
 finally:
     # Close the connection
-    if conn:
+    if 'conn' in locals() and conn is not None:
         cursor.close()
         conn.close()
         print("Connection closed.")
