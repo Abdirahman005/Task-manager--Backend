@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from extensions import db, bcrypt, jwt
 from users.routes import users_bp
 
