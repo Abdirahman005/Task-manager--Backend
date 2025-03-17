@@ -20,15 +20,12 @@ def create_app():
     db.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
-    CORS(app)  # Enable CORS
+    CORS(app)
 
     # Register blueprints
     app.register_blueprint(users_bp, url_prefix='/api')
 
-    return app  # Gunicorn will call create_app()
+    return app
 
-if __name__ == '__main__':
-    app = create_app()
-    with app.app_context():
-        db.create_all()  # Ensure tables exist (only for development)
-    app.run(debug=True, port=5000)
+# Create the app instance for Gunicorn
+app = create_app()
