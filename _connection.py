@@ -1,26 +1,22 @@
-import sqlite3
+import psycopg2
 
-# Define SQLite database file
-db_file = "task_manager_application.db"
+connection_string = "dbname='task_manager_application' user='task_manager_application_user' password='RUvV3gmQa4QPhw35XKMX0suNQWSB0xfl' host='dpg-cvbr5st2ng1s73eh1530-a.oregon-postgres.render.com' port='5432'"
 
-def get_connection():
-    try:
-        # Establish a connection to SQLite
-        conn = sqlite3.connect(db_file)
-        print("Connected to the SQLite database successfully.")
-        return conn
-    except Exception as e:
-        print("Error while connecting to the database:", e)
-        return None
+try:
+    conn = psycopg2.connect(connection_string)
+    print("Connected to the database successfully.")
 
-# Test the connection (optional)
-if __name__ == "__main__":
-    conn = get_connection()
-    if conn:
-        cursor = conn.cursor()
-        cursor.execute("SELECT sqlite_version();")
-        record = cursor.fetchone()
-        print("SQLite database version:", record[0])
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT version();")
+    record = cursor.fetchone()
+    print("Database version:", record)
+
+except Exception as e:
+    print("Error while connecting to the database:", e)
+
+finally:
+    if 'conn' in locals() and conn is not None:
         cursor.close()
         conn.close()
         print("Connection closed.")
